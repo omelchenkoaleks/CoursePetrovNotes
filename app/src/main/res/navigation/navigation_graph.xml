@@ -3,17 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/addNewNoteFragment">
+    app:startDestination="@id/mainFragment">
 
-    <fragment
-        android:id="@+id/addNewNoteFragment"
-        android:name="com.omelchenkoaleks.coursepetrovnotes.screens.AddNewNoteFragment"
-        android:label="fragment_add_new_note"
-        tools:layout="@layout/fragment_add_new_note" >
-        <action
-            android:id="@+id/action_addNewNoteFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.omelchenkoaleks.coursepetrovnotes.screens.MainFragment"
@@ -30,6 +21,16 @@
             app:destination="@id/noteFragment" />
     </fragment>
     <fragment
+        android:id="@+id/addNewNoteFragment"
+        android:name="com.omelchenkoaleks.coursepetrovnotes.screens.AddNewNoteFragment"
+        android:label="fragment_add_new_note"
+        tools:layout="@layout/fragment_add_new_note" >
+        <action
+            android:id="@+id/action_addNewNoteFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/noteFragment"
         android:name="com.omelchenkoaleks.coursepetrovnotes.screens.NoteFragment"
         android:label="fragment_note"
@@ -40,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.omelchenkoaleks.coursepetrovnotes.screens.StartFragment"
+        android:name="com.omelchenkoaleks.coursepetrovnotes.screens.start.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
