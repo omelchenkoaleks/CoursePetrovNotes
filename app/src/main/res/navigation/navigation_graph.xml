@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/noteFragment"
-        android:name="com.omelchenkoaleks.coursepetrovnotes.screens.NoteFragment"
+        android:name="com.omelchenkoaleks.coursepetrovnotes.screens.note.NoteFragment"
         android:label="fragment_note"
         tools:layout="@layout/fragment_note" >
         <action
