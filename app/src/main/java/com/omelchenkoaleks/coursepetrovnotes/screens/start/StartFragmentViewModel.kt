@@ -2,12 +2,10 @@ package com.omelchenkoaleks.coursepetrovnotes.screens.start
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.omelchenkoaleks.coursepetrovnotes.database.firebase.AppFirebaseRepository
 import com.omelchenkoaleks.coursepetrovnotes.database.room.AppRoomDatabase
 import com.omelchenkoaleks.coursepetrovnotes.database.room.AppRoomRepository
-import com.omelchenkoaleks.coursepetrovnotes.utilits.REPOSITORY
-import com.omelchenkoaleks.coursepetrovnotes.utilits.TYPE_FIREBASE
-import com.omelchenkoaleks.coursepetrovnotes.utilits.TYPE_ROOM
-import com.omelchenkoaleks.coursepetrovnotes.utilits.showToast
+import com.omelchenkoaleks.coursepetrovnotes.utilits.*
 
 class StartFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val mContext = application
@@ -20,7 +18,8 @@ class StartFragmentViewModel(application: Application) : AndroidViewModel(applic
                 onSuccess()
             }
             TYPE_FIREBASE -> {
-                showToast(TYPE_FIREBASE)
+                REPOSITORY = AppFirebaseRepository()
+                REPOSITORY.connectToDatabase({onSuccess()}, { showToast(it)})
             }
         }
     }
