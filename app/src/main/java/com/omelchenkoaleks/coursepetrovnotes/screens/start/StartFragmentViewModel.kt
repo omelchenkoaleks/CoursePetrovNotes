@@ -5,7 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import com.omelchenkoaleks.coursepetrovnotes.database.room.AppRoomDatabase
 import com.omelchenkoaleks.coursepetrovnotes.database.room.AppRoomRepository
 import com.omelchenkoaleks.coursepetrovnotes.utilits.REPOSITORY
+import com.omelchenkoaleks.coursepetrovnotes.utilits.TYPE_FIREBASE
 import com.omelchenkoaleks.coursepetrovnotes.utilits.TYPE_ROOM
+import com.omelchenkoaleks.coursepetrovnotes.utilits.showToast
 
 class StartFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val mContext = application
@@ -16,6 +18,9 @@ class StartFragmentViewModel(application: Application) : AndroidViewModel(applic
                 val dao = AppRoomDatabase.getInstance(mContext).getAppRoomDao()
                 REPOSITORY = AppRoomRepository(dao)
                 onSuccess()
+            }
+            TYPE_FIREBASE -> {
+                showToast(TYPE_FIREBASE)
             }
         }
     }
