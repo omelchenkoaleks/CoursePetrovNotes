@@ -9,40 +9,46 @@ import com.omelchenkoaleks.coursepetrovnotes.utilits.*
 
 class AppFirebaseRepository : DatabaseRepository {
 
-    private val mAuth = FirebaseAuth.getInstance()
-    private val mDatabaseReference = FirebaseDatabase.getInstance().reference
-        .child(mAuth.currentUser?.uid.toString())
+    init {
+        AUTH = FirebaseAuth.getInstance()
+    }
 
     override val allNotes: LiveData<List<AppNote>> = AllNotesLiveData()
 
     override suspend fun insert(note: AppNote, onSuccess: () -> Unit) {
-        val idNote = mDatabaseReference.push().key.toString()
+        val idNote = REF_DATABASE.push().key.toString()
         val mapNote = hashMapOf<String, Any>()
         mapNote[ID_FIREBASE] = idNote
         mapNote[NAME] = note.name
         mapNote[TEXT] = note.text
 
-        mDatabaseReference.child(idNote)
+        REF_DATABASE.child(idNote)
             .updateChildren(mapNote)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener { showToast(it.message.toString()) }
     }
 
     override suspend fun delete(note: AppNote, onSuccess: () -> Unit) {
-        TODO("Not yet implemented")
+        REF_DATABASE.child(note.idFirebase).removeValue()
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { it.message.toString() }
     }
 
     override fun connectToDatabase(onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-        mAuth.signInWithEmailAndPassword(EMAIL, PASSWORD)
+        AUTH.signInWithEmailAndPassword(EMAIL, PASSWORD)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener {
-                mAuth.createUserWithEmailAndPassword(EMAIL, PASSWORD)
+                AUTH.createUserWithEmailAndPassword(EMAIL, PASSWORD)
                     .addOnSuccessListener { onSuccess() }
                     .addOnFailureListener { onFailure(it.message.toString()) }
             }
+
+        CURRENT_ID = AUTH.currentUser?.uid.toString()
+        REF_DATABASE = FirebaseDatabase.getInstance().reference
+            .child(CURRENT_ID)
     }
 
     override fun signOut() {
-        mAuth.signOut()
+        AUTH.signOut()
     }
 }
