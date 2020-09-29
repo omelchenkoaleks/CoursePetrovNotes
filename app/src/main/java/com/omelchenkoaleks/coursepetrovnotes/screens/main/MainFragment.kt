@@ -10,6 +10,7 @@ import com.omelchenkoaleks.coursepetrovnotes.R
 import com.omelchenkoaleks.coursepetrovnotes.databinding.FragmentMainBinding
 import com.omelchenkoaleks.coursepetrovnotes.models.AppNote
 import com.omelchenkoaleks.coursepetrovnotes.utilits.APP_ACTIVITY
+import com.omelchenkoaleks.coursepetrovnotes.utilits.AppPreference
 
 class MainFragment : Fragment() {
 
@@ -72,7 +73,8 @@ class MainFragment : Fragment() {
         when (item.itemId) {
             R.id.btn_exit -> {
                 mViewModel.signOut()
-                    APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_startFragment)
+                AppPreference.setInitUser(false)
+                APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_startFragment)
             }
         }
         return super.onOptionsItemSelected(item)
